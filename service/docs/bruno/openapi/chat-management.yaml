@@ -1,0 +1,633 @@
+openapi: 3.1.0
+info:
+  title: Roomies Radar Chat API
+  description: API for chat and messaging features in Roomies Radar application.
+  version: 1.0.0
+servers:
+  - url: https://roomiesradar.com
+    description: Production server
+  - url: https://localhost:3000
+    description: Local development server
+
+paths:
+  /chats/{userId}:
+    get:
+      summary: Retrieve all chat sessions for a user
+      description: Retrieves all chat sessions for a specific user.
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the user whose chats are being retrieved.
+          examples:
+            example1:
+              summary: Example userId
+              value: "user123"
+
+      responses:
+        '200':
+          description: List of chat sessions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chat'
+              examples:
+                example1:
+                  summary: Example response with chat sessions
+                  value:
+                    - chatId: "14567"
+                      user1Id: "user123"
+                      user2Id: "user456"
+                      messages:
+                        - messageId: "14132"
+                          senderId: "user123"
+                          content: "Hello!"
+                          status: "delivered"
+                          timestamp: "2024-01-01T10:00:00Z"
+                      createdDate: "2024-01-01T10:00:00Z"
+                      lastUpdated: "2024-01-01T11:00:00Z"
+        '404':
+          description: User not found or no chat sessions available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: User not found error
+                  value:
+                    statusCode: 404
+                    message: "User not found"
+                    error: "Not Found"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+  /chats/{chatId}/messages:
+    get:
+      summary: Retrieve messages in a specific chat
+      description: Retrieves the complete message history in a specific chat session.
+      parameters:
+        - in: path
+          name: chatId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the chat session.
+          examples:
+            example1:
+              summary: Example chatId
+              value: "14511"
+
+      responses:
+        '200':
+          description: Chat messages retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+              examples:
+                example1:
+                  summary: Example response with messages
+                  value:
+                    - messageId: "14521"
+                      senderId: "user123"
+                      content: "Hello!"
+                      status: "delivered"
+                      timestamp: "2024-01-01T10:05:00Z"
+        '404':
+          description: Chat not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Chat not found error
+                  value:
+                    statusCode: 404
+                    message: "Chat not found"
+                    error: "Not Found"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+    post:
+      summary: Send a message in a specific chat
+      description: Sends a new message in an existing chat session and sets the message status to `delivered`.
+      parameters:
+        - in: path
+          name: chatId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the chat session.
+          examples:
+            example1:
+              summary: example chatId
+              value: "141221"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+            examples:
+              example1:
+                summary: Example request for sending a message
+                value:
+                  messageId: "14511"
+                  senderId: "user123"
+                  content: "Hello!"
+                  status: "delivered"
+                  timestamp: "2024-01-01T10:05:00Z"
+      responses:
+        '201':
+          description: Message sent successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Confirmation message indicating the message was successfully sent.
+                    examples:
+                      - value: "Message sent successfully"
+                  messageId:
+                    type: string
+                    description: The unique identifier of the sent message.
+                    examples:
+                      - value: "14531"
+        '404':
+          description: Chat not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Chat not found error
+                  value:
+                    statusCode: 404
+                    message: "Chat not found"
+                    error: "Not Found"
+        '500':
+          description: Internal server error (Message not sent).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+  /chats/{chatId}/messages/{messageId}/messageStatus:
+    put:
+      summary: Update the status of a specific message
+      description: Updates the status of a specific message within a chat session to `delivered` or `read`.
+      parameters:
+        - in: path
+          name: chatId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the chat session.
+          examples:
+            example1:
+              summary: example chatId
+              value: "141221"
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the message to be updated.
+          examples:
+            example1:
+              summary: example messageId
+              value: "14521"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: The status to update the message to.
+                  enum:
+                    - delivered
+                    - read
+              examples:
+                - value:
+                    status: "read"
+      responses:
+        '200':
+          description: Message status updated successfully. The message status is now either "delivered" or "read".
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messageId:
+                    type: string
+                    description: The unique identifier of the message whose status was updated.
+                    examples:
+                      - value: "14521"
+                  status:
+                    type: string
+                    description: The updated status of the message.
+                    enum:
+                      - delivered
+                      - read
+                    examples:
+                      - value: "read"
+                  message:
+                    type: string
+                    description: Confirmation message indicating the status update was successful.
+                    examples: 
+                      - value: "Message status updated successfully"
+        '404':
+          description: Message or chat not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Not found error
+                  value:
+                    statusCode: 404
+                    message: "Message or chat not found"
+                    error: "Not Found"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+  /chats/search:
+    get:
+      summary: Search for users by name to start a chat
+      description: Searches for users by name to allow initiating a chat within the chat feature.
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Name or partial name of the user to search.
+          examples:
+            example1:
+              summary: example user
+              value: "Jane"
+      responses:
+        '200':
+          description: List of users matching the search query.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              examples:
+                example1:
+                  summary: Example response with user search results
+                  value:
+                    - userId: "user456"
+                      name: "Jane Doe"
+                    - userId: "user789"
+                      name: "John Smith"
+        '404':
+          description: No users found matching the search query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: No results error
+                  value:
+                    statusCode: 404
+                    message: "No users found matching the search query."
+                    error: "Not Found"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+  /chats:
+    post:
+      summary: Initiate or retrieve a chat between two users
+      description: Initiates a new chat between two users or retrieves the existing chat ID if a conversation already exists.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user1Id:
+                  type: string
+                  description: The unique ID of the first user.
+                user2Id:
+                  type: string
+                  description: The unique ID of the second user.
+            examples:
+              example1:
+                summary: Example request for initiating a chat
+                value:
+                  user1Id: "user123"
+                  user2Id: "user456"
+                  postId: "post789"  # Optional, can be null
+              example2:
+                summary: Example request without postId
+                value:
+                  user1Id: "user123"
+                  user2Id: "user789"
+                  postId: null
+      responses:
+        '200':
+          description: Chat retrieved or created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chat'
+              examples:
+                example1:
+                  summary: Example response when a chat is created or retrieved successfully
+                  value:
+                    chatId: "chat123"
+                    user1Id: "user123"
+                    user2Id: "user456"
+                    messages:
+                      - messageId: "msg001"
+                        senderId: "user123"
+                        content: "Hello!"
+                        status: "delivered"
+                        timestamp: "2024-01-01T10:00:00Z"
+                    createdDate: "2024-01-01T10:00:00Z"
+                    lastUpdated: "2024-01-01T11:00:00Z"
+        '404':
+          description: One or both users not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Error when one or both users are not found
+                  value:
+                    statusCode: 404
+                    message: "One or both users not found"
+                    error: "Not Found"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+
+  /chats/{chatId}:
+    delete:
+      summary: Delete an entire chat session
+      description: Deletes an entire chat session, removing all messages associated with it.
+      parameters:
+        - in: path
+          name: chatId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the chat session to delete.
+          examples:
+            example1:
+              summary: Example chatId
+              value: "141221"
+      responses:
+        '200':
+          description: Chat deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Confirmation message for chat deletion.
+                    examples:
+                      - value: "Chat deleted successfully"
+        '404':
+          description: Chat not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Chat not found error
+                  value:
+                    statusCode: 404
+                    message: "Chat not found"
+                    error: "Not Found"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+  /chats/{chatId}/messages/{messageId}:
+    delete:
+      summary: Delete a specific message within a chat
+      description: Deletes a specific message in a chat session.
+      parameters:
+        - in: path
+          name: chatId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the chat session containing the message.
+          examples:
+            example1:
+              summary: Example chatId
+              value: "141221"
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+          description: The unique ID of the message to delete.
+          examples:
+            example1:
+              summary: Example messageId
+              value: "145621"
+      responses:
+        '200':
+          description: Message deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A confirmation message for successful deletion.
+                    examples:
+                      - value: "Message deleted successfully"
+                  messageId:
+                    type: string
+                    description: The unique identifier of the deleted message.
+                    examples: 
+                      - value: "14521"
+        '404':
+          description: Message or chat not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Message or chat not found error
+                  value:
+                    statusCode: 404
+                    message: "Message or chat not found"
+                    error: "Not Found"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example1:
+                  summary: Server error example
+                  value:
+                    statusCode: 500
+                    message: "Internal server error"
+                    error: "Internal Server Error"
+
+
+components:
+  schemas:
+    Chat:
+      type: object
+      properties:
+        chatId:
+          type: string
+        user1Id:
+          type: string
+        user2Id:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        createdDate:
+          type: string
+          format: date-time
+        lastUpdated:
+          type: string
+          format: date-time
+
+    Message:
+      type: object
+      properties:
+        messageId:
+          type: string
+        senderId:
+          type: string
+        content:
+          type: string
+        status:
+          $ref: "#/components/schemas/MessageStatus"
+        timestamp:
+          type: string
+          format: date-time
+
+    MessageStatus:
+      type: string
+      enum:
+        - delivered
+        - read
+
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
