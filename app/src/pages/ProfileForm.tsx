@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Button, Stepper, Step, StepLabel, Typography } from '@mui/material';
-import ProfileFormStep1 from '../components/profileformstep1';
-import ProfileFormStep2 from '../components/profileformstep2';
-import ProfileFormStep3 from '../components/profileformstep3';
+import ProfileFormStep1 from '../components/ProfileFormStep1';
+import ProfileFormStep2 from '../components/ProfileFormStep2';
+import ProfileFormStep3 from '../components/ProfileFormStep3';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/profileform.css';
