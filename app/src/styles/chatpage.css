@@ -1,0 +1,37 @@
+.chat-page {
+  display: flex;
+  height: 100vh;
+  background-color: #F4F2EE;
+  flex:1;
+  
+}
+.page-container {
+   /* Set a max width for the page */
+   /* Center the entire page horizontally */
+  padding: 20px; /* Add some padding for margins */
+  height: 100vh; /* Full height for the container */
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  background-color: #f9f9f9; /* Background for the page */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for styling */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Maintain the chat-page layout */
+
+
+.chat-list-container {
+  flex: 0 0 30%; /* Chat list takes 30% of the width */
+  max-width: 30%;
+  background-color: #f5f7fa;
+  overflow-y: auto;
+  border-right: 1px solid #d1d5db;
+ 
+}
+
+.chat-window-container {
+  flex: 1; /* Chat window takes remaining space */
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}

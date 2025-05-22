@@ -1,0 +1,30 @@
+{
+    "inbox": "Inbox",
+    "deleteChatConfirmation": "Are you sure you want to delete this chat?",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "filters": "Filters",
+    "priceRange": "Price Range",
+    "roomType": "Room Type",
+    "amenities": "Amenities",
+    "genderPreferences": "Gender Preferences",
+    "applyFilters": "APPLY FILTERS",
+    "resetFilters": "RESET FILTERS",
+    "foodPreferences": "Food Preferences",
+    "welcome": "Welcome",
+    "header": "Connecting Millions to Their Perfect Roommates",
+    "tag": "Finding your perfect roommate and dream space has never been this easy. Connect with like-minded roommates who match your lifestyle. Say goodbye to the hassle and let us guide you to a place you’ll love to call home!",
+    "tagline": "Your Space, Your Rules, Your Community.",
+    "discoverPosts": "Discover Posts That Fit Your Lifestyle",
+    "loadingPosts": "Loading posts",
+    "previous": "Previous",
+    "next": "Next",
+    "home": "Home",
+    "post": "Post",
+    "profile": "Profile",
+    "logout": "Logout",
+    "subscribe": "Subscribe",
+    "title":"Roomies Radar"
+
+
+}

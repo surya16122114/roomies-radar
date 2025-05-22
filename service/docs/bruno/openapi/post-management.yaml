@@ -1,0 +1,386 @@
+openapi: 3.0.1
+info:
+  title: Roommate Finder Post Management API
+  description: API for creating, viewing, updating, and deleting roommate-seeking posts, with detailed listings and preferences.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /posts:
+    get:
+      summary: Get all posts
+      description: Retrieve all roommate-seeking posts with optional filters.
+      parameters:
+        - in: query
+          name: location
+          description: Location filter for the post (city or neighborhood).
+          schema:
+            type: string
+          examples:
+            example1:
+              summary: Example location filter
+              value: "Boston"
+        - in: query
+          name: minPrice
+          description: Minimum price filter for accommodation.
+          schema:
+            type: number
+            format: float
+          examples:
+            example1:
+              summary: Minimum price example
+              value: 500
+        - in: query
+          name: maxPrice
+          description: Maximum price filter for accommodation.
+          schema:
+            type: number
+            format: float
+          examples:
+            example1:
+              summary: Maximum price example
+              value: 1500
+        - in: query
+          name: roomType
+          description: Room type filter (e.g., "Private Room").
+          schema:
+            type: string
+          examples:
+            example1:
+              summary: Room type example
+              value: "Private Room"
+      responses:
+        '200':
+          description: Successful retrieval of posts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+              examples:
+                example1:
+                  summary: Example response with posts
+                  value:
+                    - postId: "1"
+                      createdBy:
+                        userId: "user123"
+                        name: "John Doe"
+                        email: "john@example.com"
+                      taggedRoommates:
+                        - userId: "user456"
+                          name: "Alice Smith"
+                          email: "alice@example.com"
+                      listing:
+                        listingId: "listing123"
+                        address:
+                          street: "123 Elm St"
+                          apartmentNumber: 4
+                          city: "Boston"
+                          state: "MA"
+                          postalCode: "02115"
+                          country: "USA"
+                        price: 1200
+                        description: "Spacious room in a shared apartment"
+                        availabilityDates: "2024-12-01"
+                        roomType: "Private Room"
+                        photos:
+                          - "photo1.jpg"
+                          - "photo2.jpg"
+                        amenities:
+                          - "WiFi"
+                          - "Air Conditioning"
+                        maxOccupants: 1
+                        createdDate: "2024-11-10"
+                      preferences:
+                        spotType: "PRIVATE_ROOM"
+                        foodPreferences: "NON_VEG"
+                        gender: "MALE"
+                        drinking: false
+                        smoking: false
+                        anySpecialRequirements: "No pets"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Create a new post
+      description: Create a new roommate-seeking post with listing details and preferences.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+            examples:
+              example1:
+                summary: Example request for creating post
+                value:
+                  postId: "1"
+                  createdBy:
+                    userId: "user123"
+                    name: "John Doe"
+                    email: "john@example.com"
+                  taggedRoommates:
+                    - userId: "user456"
+                      name: "Alice Smith"
+                      email: "alice@example.com"
+                  listing:
+                    listingId: "listing123"
+                    address:
+                      street: "123 Elm St"
+                      apartmentNumber: 4
+                      city: "Boston"
+                      state: "MA"
+                      postalCode: "02115"
+                      country: "USA"
+                    price: 1200
+                    description: "Spacious room in a shared apartment"
+                    availabilityDates: "2024-12-01"
+                    roomType: "Private Room"
+                    photos:
+                      - "photo1.jpg"
+                      - "photo2.jpg"
+                    amenities:
+                      - "WiFi"
+                      - "Air Conditioning"
+                    maxOccupants: 1
+                    createdDate: "2024-11-10"
+                  preferences:
+                    spotType: "PRIVATE_ROOM"
+                    foodPreferences: "NON_VEG"
+                    gender: "MALE"
+                    drinking: false
+                    smoking: false
+                    anySpecialRequirements: "No pets"
+      responses:
+        '201':
+          description: Post successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid input data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /posts/{postId}:
+    get:
+      summary: Get a single post
+      description: Retrieve details of a specific post by post ID.
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          description: Unique identifier of the post to retrieve.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of post.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update an existing post
+      description: Update details of an existing post by post ID.
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          description: Unique identifier of the post to update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          description: Post successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid input data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Post not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete an existing post
+      description: Delete a post by its ID.
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          description: Unique identifier of the post to delete.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Post successfully deleted.
+        '404':
+          description: Post not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        postId:
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/User'
+        taggedRoommates:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        listing:
+          $ref: '#/components/schemas/Listing'
+        preferences:
+          $ref: '#/components/schemas/Preferences'
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+    Listing:
+      type: object
+      properties:
+        listingId:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        availabilityDates:
+          type: string
+          format: date
+        roomType:
+          type: string
+        photos:
+          type: array
+          items:
+            type: string
+        amenities:
+          type: array
+          items:
+            type: string
+        maxOccupants:
+          type: integer
+        createdDate:
+          type: string
+          format: date
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        apartmentNumber:
+          type: number
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    Preferences:
+      type: object
+      properties:
+        spotType:
+          type: string
+          description: "Type of the accommodation (e.g., 'PRIVATE_ROOM')."
+        foodPreferences:
+          type: string
+          description: "Food preference (e.g., 'NON_VEG')."
+        gender:
+          type: string
+          description: "Preferred gender of the roommate (e.g., 'MALE')."
+        drinking:
+          type: boolean
+          description: "Whether the person drinks alcohol."
+        smoking:
+          type: boolean
+          description: "Whether the person smokes."
+        anySpecialRequirements:
+          type: string
+          description: "Any special requirements."
+    ErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code of the error.
+          example: 400
+        message:
+          type: string
+          description: Error message detailing the issue.
+          example: "Invalid input data."
+        error:
+          type: string
+          description: Error type or code.
+          example: "BadRequest"

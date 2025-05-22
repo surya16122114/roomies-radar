@@ -1,0 +1,181 @@
+/* ChatWindow.css */
+
+/* Container Styles */
+.chat-window-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* Chat Header */
+.chat-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+}
+
+.chat-header-avatar {
+ background-color: #5C5470 !important;
+  color: #ffffff;
+  margin-right: 16px;
+}
+
+.chat-header-title {
+  font-weight: bold;
+  color: #1c1c1e !important;
+}
+
+/* Messages Section */
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.chat-message {
+  display: flex;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.chat-message.sent {
+  justify-content: flex-end;
+}
+
+.chat-message.received {
+  justify-content: flex-start;
+}
+
+.chat-message-bubble {
+  position: relative; /* Enable absolute positioning for ticks and delete icon */
+  padding: 10px 16px;
+  border-radius: 16px !important;
+  max-width: 50%; /* Restrict bubble width */
+  word-wrap: break-word; /* Wrap long text */
+  word-break: break-word;
+  white-space: pre-wrap; /* Preserve new lines */
+  overflow-wrap: break-word; /* Support for older browsers */
+  background-color: #5C5470 !important; /* Example bubble color */
+  color: #ffffff; /* Text color */
+}
+
+.chat-message-content-wrapper {
+  display: block; /* Keep content block-level */
+}
+
+.chat-message-content {
+  display: inline-block; /* Prevent message text from affecting the layout */
+}
+
+.chat-message-meta {
+  display: flex; /* Align timestamp and ticks */
+  justify-content: flex-end; /* Align to the right */
+  align-items: center; /* Vertically align */
+  font-size: 12px; /* Small font size for meta info */
+  color: rgba(255, 255, 255, 0.7); /* Slightly dimmed text color */
+}
+
+.message-timestamp {
+  margin-right: 6px; /* Space between timestamp and ticks */
+}
+
+.message-status-icon .tick-icon {
+  font-size: 16px; /* Adjust size of the tick icon */
+}
+
+.message-status-icon.read .tick-icon {
+  color: blue; /* Blue ticks for read */
+}
+
+.message-status-icon.delivered .tick-icon {
+  color: rgb(31, 27, 27); /* Gray ticks for delivered */
+}
+
+.chat-trash-icon-wrapper {
+  position: absolute; /* Position over the bubble */
+  top: 50%;
+  right: 8px; /* Align with the right edge */
+  transform: translateY(-50%); /* Center vertically */
+}
+
+.chat-trash-icon {
+  visibility: hidden; /* Hidden by default */
+  opacity: 0; /* Fully transparent */
+  transition: opacity 0.3s ease; /* Smooth fade-in effect */
+  color: #ffffff; /* Match text color */
+}
+
+.chat-message-bubble:hover .chat-trash-icon {
+  visibility: visible; /* Show icon on hover */
+  opacity: 1; /* Fully visible */
+}
+
+.chat-message-bubble.sent {
+  background-color: #8174a0 !important; /* Sent message bubble */
+  color: #ffffff;
+}
+
+.chat-message-bubble.received {
+  background-color: #f4f4f8 !important; /* Received message bubble */
+  color: #1c1c1e;
+}
+
+.chat-message-bubble.deleted {
+  background-color: #e5e5e5 !important;
+  color: #6d6d6d;
+}
+
+/* Input Section */
+.chat-input-container {
+  display: flex;
+  padding: 16px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f8f8fa;
+}
+
+.chat-input-field {
+  flex-grow: 1;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-right: 16px;
+}
+
+.chat-send-button {
+  color: #5C5470 !important;
+  padding: 10px;
+}
+
+.chat-send-button:hover {
+  color: #6d5c93 !important;
+}
+
+/* Centered Date Label */
+.chat-date-label {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #8174a0;
+  margin: 16px 0;
+}
+
+/* Hover Icon */
+.chat-menu-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  visibility: hidden;
+}
+
+/* Message Bubble */
+.chat-message:hover .chat-menu-icon {
+  visibility: visible;
+}
+
+/* Delete Dialog */
+.MuiDialog-paper {
+  border-radius: 10px;
+  padding: 16px;
+}

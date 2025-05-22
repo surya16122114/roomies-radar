@@ -1,0 +1,288 @@
+openapi: 3.1.0
+info:
+  title: Membership Management API
+  description: API for managing memberships, including status checks, cancellations, monthly payments, and activation.
+  version: 1.2.0
+servers:
+  - url: https://api.membership.com
+    description: Production server
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /api/memberships/{userId}/status:
+    get:
+      summary: Check membership status
+      operationId: checkMembershipStatus
+      description: Checks if the specified user has an active membership.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            example1: "12345"
+          description: The unique ID of the user.
+      responses:
+        '200':
+          description: Membership status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hasMembership:
+                    type: boolean
+                    description: Indicates if the user has an active membership.
+                    example2: true
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/memberships/{userId}/cancel:
+    delete:
+      summary: Cancel membership
+      operationId: cancelMembership
+      description: Cancels the membership for the specified user.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            example3: "12345"
+          description: The unique ID of the user.
+      responses:
+        '204':
+          description: Membership cancelled successfully.
+        '404':
+          description: No active membership found for the user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/memberships/{userId}/payment/monthly:
+    post:
+      summary: Add monthly payment for membership
+      operationId: addMonthlyPayment
+      description: Adds a monthly payment for the user's membership.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            example4: "12345"
+          description: The unique ID of the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+            example:
+              amount: 50.0
+              method: "credit_card"
+              transactionId: "txn_67890"
+      responses:
+        '201':
+          description: Payment added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+              example:
+                id: "pay_12345"
+                userId: "12345"
+                membershipId: "mem_67890"
+                amount: 50.0
+                method: "credit_card"
+                transactionId: "txn_67890"
+                date: "2024-11-18T12:34:56Z"
+                status: "completed"
+        '402':
+          description: Payment failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/memberships/{userId}/activate:
+    post:
+      summary: Activate a membership
+      operationId: activateMembership
+      description: Activates a membership for the specified user.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            example5: "12345"
+          description: The unique ID of the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateMembershipRequest'
+            example:
+              membershipId: "mem_12345"
+              paymentDetails:
+                amount: 100.0
+                method: "paypal"
+                transactionId: "txn_12345"
+      responses:
+        '201':
+          description: Membership activated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MembershipActivationResponse'
+              example:
+                userId: "12345"
+                membershipId: "mem_12345"
+                status: "active"
+        '400':
+          description: Invalid input or missing required fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code.
+          example6: 400
+        message:
+          type: string
+          description: Error message.
+          example7: "Invalid user ID."
+      required:
+        - code
+        - message
+    CreatePaymentRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+          description: The payment amount.
+          example8: 50.0
+        method:
+          type: string
+          description: The payment method (e.g., credit card, PayPal).
+          example9: "credit_card"
+        transactionId:
+          type: string
+          description: The transaction ID for the payment.
+          example10: "txn_67890"
+      required:
+        - amount
+        - method
+        - transactionId
+    ActivateMembershipRequest:
+      type: object
+      properties:
+        membershipId:
+          type: string
+          description: The ID of the membership to activate.
+          example11: "mem_12345"
+        paymentDetails:
+          $ref: '#/components/schemas/CreatePaymentRequest'
+      required:
+        - membershipId
+        - paymentDetails
+    MembershipActivationResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique ID of the user.
+          example12: "12345"
+        membershipId:
+          type: string
+          description: The activated membership ID.
+          example13: "mem_12345"
+        status:
+          type: string
+          description: The status of the activation (e.g., active).
+          example14: "active"
+      required:
+        - userId
+        - membershipId
+        - status
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the payment.
+          example15: "pay_12345"
+        userId:
+          type: string
+          description: The unique ID of the user.
+          example16: "12345"
+        membershipId:
+          type: string
+          description: The unique ID of the membership.
+          example17: "mem_67890"
+        amount:
+          type: number
+          format: float
+          description: The amount paid.
+          example18: 50.0
+        method:
+          type: string
+          description: The payment method used.
+          example19: "credit_card"
+        transactionId:
+          type: string
+          description: The transaction ID for the payment.
+          example20: "txn_67890"
+        date:
+          type: string
+          format: date-time
+          description: The date and time when the payment was made.
+          example21: "2024-11-18T12:34:56Z"
+        status:
+          type: string
+          description: The current status of the payment.
+          example22: "completed"
+      required:
+        - id
+        - userId
+        - membershipId
+        - amount
+        - method
+        - transactionId
+        - date
+        - status

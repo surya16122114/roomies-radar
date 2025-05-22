@@ -1,0 +1,384 @@
+openapi: 3.0.1
+info:
+  title: Roommate Finder User Management API
+  version: 1.0.0
+  description: API for user registration, login, profile management, and deletion in a Roommate Finder application.
+
+servers:
+  - url: https://api.roommatefinder.com
+    description: Production server
+  - url: http://localhost:4000
+    description: Local development server
+
+paths:
+  /auth/user/register:
+    post:
+      summary: Register a new user
+      operationId: registerUser
+      description: Registers a new user with email, password, firstName, lastName, and optional preferences.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address.
+                  example: "user@example.com"
+                password:
+                  type: string
+                  format: password
+                  description: User's password (must be at least 8 characters).
+                  example: "securePassword123"
+                fullName:
+                  type: string
+                  description: Full name of the user.
+                  example: "John Doe"
+                preferences:
+                  $ref: '#/components/schemas/Preferences'
+      responses:
+        '201':
+          description: User registered successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: All fields are required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Email already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/user/login:
+    post:
+      summary: Log in a user
+      operationId: loginUser
+      tags:
+        - Authentication
+      description: Authenticates a user with their email and password.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address.
+                  example: "user@example.com"
+                password:
+                  type: string
+                  format: password
+                  description: >
+                    User's password (minimum 8 characters, must include at least
+                    one number and one special character).
+                  example: "securePassword123"
+      responses:
+        '200':
+          description: Successful login, returns a JWT token and userId.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT token for authentication.
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  userId:
+                    type: string
+                    description: The unique ID of the logged-in user.
+                    example: "user_12345"
+              examples:
+                success:
+                  summary: Example successful login response.
+                  value:
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    userId: "user_12345"
+        '401':
+          description: Invalid email or password.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  summary: Example error response.
+                  value:
+                    statusCode: 401
+                    message: "Invalid email or password."
+                    error: "Unauthorized"
+
+  /profile/{userId}:
+    get:
+      summary: Retrieve a user’s profile
+      operationId: getUserProfile
+      description: Fetches the profile information for the specified user.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the user.
+          example: "user_12345"
+      responses:
+        '200':
+          description: User profile retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    patch:
+      summary: Update a user’s profile
+      operationId: updateUserProfile
+      description: Updates the profile information for the specified user.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the user.
+          example: "user_12345"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+      responses:
+        '200':
+          description: User profile updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          description: Invalid profile data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a user’s profile
+      operationId: deleteUserProfile
+      description: Deletes the profile and account for the specified user.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the user.
+          example: "user_12345"
+      responses:
+        '204':
+          description: User profile deleted successfully.
+        '400':
+          description: Invalid user ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for the user.
+          example: "user_12345"
+        email:
+          type: string
+          format: email
+          description: User's email address.
+          example: "user@example.com"
+        fullName:
+          type: string
+          description: Full name of the user.
+          example: "John Doe"
+        preferences:
+          $ref: '#/components/schemas/Preferences'
+
+    Profile:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        gender:
+          type: string
+          enum:
+            - M
+            - F
+          description: Gender of the user.
+          example: "M"
+        hometown:
+          type: string
+          description: Hometown of the user.
+          example: "New York"
+        age:
+          type: integer
+          description: Age of the user.
+          example: 25
+        course:
+          type: string
+          description: Course the user is studying.
+          example: "Computer Science"
+        college:
+          type: string
+          description: College where the user studies.
+          example: "MIT"
+        primaryLanguage:
+          type: string
+          description: Primary language spoken by the user.
+          example: "English"
+        otherLanguage:
+          type: string
+          description: Other languages spoken by the user.
+          example: "Spanish"
+        foodType:
+          type: string
+          description: Preferred food type.
+          example: "NonVeg"
+        workExperience:
+          $ref: '#/components/schemas/WorkExperience'
+        otherHabits:
+          type: string
+          description: Other personal habits or preferences.
+          example: "Night owl"
+        hobbies:
+          type: array
+          items:
+            type: string
+          description: List of hobbies.
+          example: ["Reading", "Gaming"]
+        preferences:
+          $ref: '#/components/schemas/Preferences'
+        education:
+          $ref: '#/components/schemas/Education'
+
+    Preferences:
+      type: object
+      properties:
+        spotType:
+          type: string
+          enum:
+            - PRIVATE_HALL
+            - PRIVATE_ROOM
+            - SHARED_HALL
+            - SHARED_ROOM
+          description: Preferred type of living spot.
+          example: "SHARED_ROOM"
+        roommateGender:
+          type: string
+          enum:
+            - M
+            - F
+          description: Preferred gender of the roommate.
+          example: "F"
+        roommateFoodPreference:
+          type: string
+          enum:
+            - Veg
+            - NonVeg
+          description: Preferred food type of the roommate.
+          example: "NonVeg"
+        drinking:
+          type: boolean
+          description: Whether drinking is allowed.
+          example: false
+        smoking:
+          type: boolean
+          description: Whether smoking is allowed.
+          example: false
+        petsAllowed:
+          type: boolean
+          description: Whether pets are allowed.
+          example: true
+        anySpecialRequirements:
+          type: string
+          description: Any special requirements for the roommate.
+          example: "Must have a quiet environment."
+
+    WorkExperience:
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: Name of the company.
+          example: "TechCorp"
+        role:
+          type: string
+          description: Role at the company.
+          example: "Software Engineer"
+        tenure:
+          type: string
+          description: Tenure at the company.
+          example: "2 years"
+
+    Education:
+      type: object
+      properties:
+        school:
+          type: string
+          description: Name of the school or college.
+          example: "MIT"
+        degree:
+          type: string
+          description: Degree pursued.
+          example: "Bachelor's in Computer Science"
+        fieldOfStudy:
+          type: string
+          description: Field of study.
+          example: "Software Engineering"
+
+    ErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code of the error.
+          example: 400
+        message:
+          type: string
+          description: Error message detailing the issue.
+          example: "Invalid input data."
+        error:
+          type: string
+          description: Error type or code.
+          example: "BadRequest"

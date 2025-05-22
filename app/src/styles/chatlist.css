@@ -1,0 +1,67 @@
+/* ChatList.css */
+
+/* ChatList.css */
+
+.chat-list-container {
+  width: 30%;
+  background-color: #f5f7fa; /* Cool light background */
+  overflow-y: auto;
+  border-right: 1px solid #d1d5db; /* Subtle border */
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.chat-list-header {
+  padding: 16px;
+  font-weight: bold !important;
+  color: #2a4365; /* Rich navy color for header text */
+  border-bottom: 1px solid #d1d5db;
+}
+
+.chat-list {
+  padding: 0 !important;
+}
+
+.chat-list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: transparent;
+  border-bottom: 1px solid #e2e8f0; /* Subtle divider */
+  cursor: pointer;
+}
+
+.chat-list-item:hover {
+  background-color: #ebf4ff; /* Gentle hover effect */
+}
+
+
+
+.chat-avatar {
+  background-color: #5C5470 !important; /* Cool indigo shade */
+  color: #ffffff;
+}
+
+.chat-primary-text {
+  color: #2d3748; /* Darker text for readability */
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.chat-secondary-text {
+  color: #718096; /* Muted gray for secondary text */
+  font-size: 0.875rem;
+}
+
+/* Trash icon visibility */
+.chat-delete-icon {
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.2s ease-in-out; /* Smooth transition */
+  margin-right: 16px !important;
+}
+
+/* Show trash icon on hover */
+.chat-list-item:hover .chat-delete-icon {
+  opacity: 1; /* Visible on hover */
+ 
+}
+
