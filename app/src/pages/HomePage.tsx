@@ -5,7 +5,7 @@ import { RootState, AppDispatch } from '../redux/store';
 import PostCard from '../components/PostCard';
 import HpNavbar from '../components/hpnavabar';
 import FilterSection from '../components/FiltersSection';
-import '../styles/HomePage.css';
+import '../styles/homepage.css';
 import { Grid, Typography, Card, CircularProgress, Box, Button, colors } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import Footer from '../components/footer';
