@@ -1,0 +1,23 @@
+
+.MuiPaper-root {
+    max-width: 1200px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+
+   
+  }
+  
+  .MuiAvatar-root {
+    background-color: #3f51b5;
+    font-size: 2rem;
+  }
+  
+  .MuiGrid-item {
+    margin-top: 1rem;
+  }
+  
+
+  .complete{
+    background-color: #F4F2EE;
+
+  }

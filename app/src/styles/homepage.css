@@ -1,0 +1,113 @@
+/* General container styles */
+/* .homepage-container { */
+  /* Cambria, Cochin, Georgia, Times, "Times New Roman", serif; */
+  /* background-color: white; */
+  /* padding: 2rem; */
+/* } */
+
+.homepage-container {
+  background-color: #F4F2EE;
+  padding: 2rem 1rem 2rem 1rem;
+  scroll-behavior: smooth;
+}
+
+
+/* Hero section styles */
+.hero-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  /* background-color: #f5f5f5; */
+  color: #424242;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+}
+
+.main-content{
+  background-color: #F4F2EE;
+  padding: 2rem 1rem 0rem 1rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: grey;
+}
+
+/* Filters Section */
+.filters-section {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.filters-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* Posts Section */
+.posts-section {
+  
+  padding: .5rem 2rem 2rem 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(57, 57, 57, 0.1);
+}
+
+.posts-section h2{
+  /* padding-bottom: 2rem; */
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.posts-title {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* Posts Grid */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Ensures three posts per row */
+  gap: 1rem;
+}
+
+/* Post Card Styling */
+.post-card {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.pagination-controls button {
+  margin: 0 0.5rem;
+}
+
+.pagination-controls .MuiButton-root {
+  padding: 0.5rem 1.5rem;
+}

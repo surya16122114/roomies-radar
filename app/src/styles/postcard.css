@@ -1,0 +1,58 @@
+/* PostCard Styles */
+.post-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  height: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.post-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 8px 8px 0 0;
+}
+
+.view-details-button {
+  margin: 0.5rem;
+  background-color: #ff6f61 !important;
+  color: white;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.view-details-button:hover {
+  background-color: #e65b50;
+}
+
+.post-card-postedby {
+  background-color: #5C5470 !important;
+}
+
+.post-card-startchat {
+  color: #686D76 !important;
+}
+
+.post-card-tr{
+  background-color: #5C5470 !important;
+}
+
+.view-details-button{
+  background-color: #686D76 !important;
+}
+.share-details-button{
+  background-color: #686D76 !important;
+  color: white !important;
+}

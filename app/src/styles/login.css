@@ -1,0 +1,74 @@
+
+.Section{
+    display : flex;
+    overflow: hidden;
+}
+
+.Section .sideimage img{
+    width : 90%;
+    height : 100vh;
+}
+
+.Section .loginform{
+    position: absolute;
+
+    left: 55%;
+}
+
+.Section .loginform h2{
+    font-size : 7.5rem;
+    font-weight : 500;
+}
+
+.Section .loginform form{
+    margin-top : 2rem;
+    font-size: 2rem;
+    margin-left: 3rem;
+}
+
+.Section .loginform form input{
+    width : 100%;
+    padding : 1rem;
+    margin-bottom : 1rem;
+    border : none;
+    border-bottom : 1px solid #000;
+    font-size : 1.5rem;
+}
+
+.Section .loginform form button{
+    width : 100%;
+    padding : 1rem;
+    margin-top : 1rem;
+    border : none;
+    background-color : #000;
+    color : #fff;
+    font-size : 1.5rem;
+    margin-left: 1rem;
+    cursor : pointer; 
+}
+
+.Section .loginform form button:hover{
+    background-color : #cecece;
+    color : #000;
+} 
+.Section .loginform form .error-message{
+    color : red;
+    font-size : 1.5rem;
+    margin-left: 1rem;
+}
+
+.Section .loginform form p{
+    font-size : 1.5rem;
+    margin-left: 1rem;
+}
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }

@@ -1,0 +1,43 @@
+/* Ensure AppBar and Toolbar styles are overridden */
+.hpnavbar {
+    background-color: #2d2d2d !important; /* Override Material-UI default styles */
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    z-index: 10; /* Ensure it appears on top */
+    margin:auto;
+  }
+  
+  /* Force Toolbar to align properly */
+  .hpnavbar .MuiToolbar-root {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  
+  /* Force visibility for buttons */
+  .hpnav-btn {
+    color: white !important;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    text-transform: none !important;
+  }
+  
+  .hpnav-btn:hover {
+    background-color: #ff6f61 !important;
+    color: white !important;
+    border-radius: 4px;
+  }
+  
+  /* Profile button emphasis */
+  .hpnav-btn-profile {
+    border: 1px solid #ff6f61 !important;
+  }
+  
+  .hpnav-btn-profile:hover {
+    background-color: white !important;
+    color: #ff6f61 !important;
+  }
+  

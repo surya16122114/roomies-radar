@@ -1,0 +1,66 @@
+
+.Section{
+    display : flex;
+    overflow: hidden;
+}
+
+.Section .sideimage img{
+    width : 90%;
+    height : 100vh;
+    /* mask-image: linear-gradient(to right, transparent, black 30%, black 100%, transparent); Adjust percentages for desired fade width */
+}
+
+.Section .signupform{
+    position: absolute;
+    top: -2rem;
+    left: 55%;
+    width: 600px;
+}
+
+.Section .signupform h2{
+    font-size : 4.5rem;
+    font-weight : 500;
+}
+
+.Section .signupform form{
+    font-size: 1.2rem;
+    margin-left: 1rem;
+}
+
+.Section .signupform form input{
+    width : 100%;
+    padding : 10px;
+    /* margin-bottom : 10px; */
+    border : none;
+    border-bottom : 1px solid #000;
+    font-size : 1rem;
+    /* margin-left: 1rem; */
+}
+
+.Section .loginform form button{
+    width : 100%;
+    padding : 1rem;
+    margin-top : 1rem;
+    border : none;
+    background-color : #000;
+    color : #fff;
+    font-size : 1.5rem;
+    margin-left: 1rem;
+    cursor : pointer;
+}
+
+/* .Section .loginform form button:hover{
+    background-color : #cecece;
+    color : #000;
+} */
+
+.Section .loginform form .error-message{
+    color : red;
+    font-size : 1.5rem;
+    margin-left: 1rem;
+}
+
+.Section .loginform form p{
+    font-size : 1.5rem;
+    margin-left: 1rem;
+}

@@ -1,0 +1,24 @@
+
+.HowitWorks{
+    background-color: #FFEBE2;
+    border-top-left-radius: 180px;
+    border-bottom-right-radius: 180px;
+    height: 80vh;
+}
+
+.HowitWorks h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    /* color: #FF6B6B; */
+    text-align: center;
+    padding-top: 5rem;
+}
+
+.HowitWorks ol li{
+    margin-left: 26rem;
+    font-size: 1.3rem;
+    font-weight: 550;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 50rem;
+}
