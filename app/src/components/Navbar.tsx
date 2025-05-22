@@ -18,12 +18,12 @@ import { logout } from '../redux/Slice/authstate';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import logo from '../assets/friendship.jpeg';
-import SubscribeButton from './subscribebutton';
-import NavbarHome from './navbarhome';
+// import SubscribeButton from './subscribebutton';
+import NavbarHome from './NavbarHome';
 import NavbarHowitworks from './navabarhowitworks'; 
-import Inbox from './inbox';
-import Profile from './profile';
-import NavbarLogin from './navbarlogin';
+import Inbox from './Inbox';
+import Profile from './Profile';
+import NavbarLogin from './NavbarLogin';
 
 const HpNavbar: React.FC = () => {
   const location = useLocation();

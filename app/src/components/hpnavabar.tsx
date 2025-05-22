@@ -19,14 +19,14 @@ import { clearUserDetails } from '../redux/Slice/userslice';
 import { logout } from '../redux/Slice/authstate';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../assets/friendship.jpeg';
-import SubscribeButton from './subscribebutton';
+import SubscribeButton from './SubscribeButton';
 import { useTranslation } from 'react-i18next';
 
-import Home from './home';
-import Post from './post';
-import Inbox from './inbox';
-import Profile from './profile';
-import Logout from './logout';
+import Home from './Home';
+import Post from './Post';
+import Inbox from './Inbox';
+import Profile from './Profile';
+import Logout from './Logout';
 
 const HpNavbar: React.FC = () => {
   const dispatch = useDispatch();

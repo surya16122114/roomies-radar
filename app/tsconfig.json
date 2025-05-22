@@ -10,7 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "outDir": "./build", // Compiled JavaScript files will go here
-    "rootDir": "./src" // Source files are expected to be in this directory
+    "rootDir": "./src", // Source files are expected to be in this directory
+    "resolveJsonModule": true,
   },
   "include": ["src"], // Compile files in the src directory
   "exclude": ["node_modules", "build", "dist"] // Exclude output directories and dependencies
