@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button, Stepper, Step, StepLabel } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import ProfileFormStep1 from '../components/profileformstep1';
-import ProfileFormStep2 from '../components/profileformstep2';
-import ProfileFormStep3 from '../components/profileformstep3';
+import ProfileFormStep1 from '../components/ProfileFormStep1';
+import ProfileFormStep2 from  '../components/ProfileFormStep2';
+import ProfileFormStep3 from  '../components/ProfileFormStep3';
 
 const EditProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
