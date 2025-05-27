@@ -12,7 +12,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import '../styles/PostCard.css';
+import '../styles/postcard.css';
 
 interface CreatedBy {
   firstName: string;
