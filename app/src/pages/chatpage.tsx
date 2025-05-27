@@ -6,7 +6,7 @@ import { setChats, setCurrentChat, setMessages, setNewMessage, addDeletedMessage
 import ChatList from "../components/chatlist"
 import ChatWindow from "../components/chatwindow";
 import HpNavbar from "../components/hpnavabar";
-import "../styles/ChatPage.css";
+import "../styles/chatpage.css";
 import { AppDispatch, RootState } from "../redux/store";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
