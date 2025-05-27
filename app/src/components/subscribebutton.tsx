@@ -15,7 +15,7 @@ const SubscribeButton: React.FC = () => {
   const { t } = useTranslation();
   const handleSubscribeClick = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/memberships/${userId}/status`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/memberships/${userId}/status`);
       console.log("Subscription Status:", response.data);
  
       if (response.data.membershipStatus === "active") {

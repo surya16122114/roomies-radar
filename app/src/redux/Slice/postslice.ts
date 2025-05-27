@@ -31,7 +31,7 @@ export const fetchPosts = createAsyncThunk(
     page?: number;
     limit?: number;
   }) => {
-    const response = await axios.get('${process.env.REACT_APP_API_URL}/posts', {
+    const response = await axios.get('${import.meta.env.VITE_API_URL}/posts', {
       params: {
         city,
         area,
@@ -55,7 +55,7 @@ export const fetchPosts = createAsyncThunk(
 export const createPost = createAsyncThunk(
   'posts/createPost',
   async (postData: any) => {
-    const response = await axios.post('${process.env.REACT_APP_API_URL}/posts', postData);
+    const response = await axios.post('${import.meta.env.VITE_API_URL}/posts', postData);
     return response.data;
   }
 );
@@ -64,7 +64,7 @@ export const createPost = createAsyncThunk(
 export const updatePost = createAsyncThunk(
   'posts/updatePost',
   async ({ postId, postData }: { postId: string; postData: any }) => {
-    const response = await axios.put(`${process.env.REACT_APP_API_URL}/posts/${postId}`, postData);
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/posts/${postId}`, postData);
     return response.data;
   }
 );

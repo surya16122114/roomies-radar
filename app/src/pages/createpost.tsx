@@ -80,7 +80,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ isEditMode = false }) => {
       const fetchPostDetails = async () => {
         setFetchingPost(true);
         try {
-          const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts/${postId}`);
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${postId}`);
           setFormData(response.data); // Populate form with fetched data
         } catch (error) {
           console.error('Error fetching post details:', error);

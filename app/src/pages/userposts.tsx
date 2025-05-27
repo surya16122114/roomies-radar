@@ -70,7 +70,7 @@ const UserPosts: React.FC = () => {
 
     const fetchUserPosts = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts/user/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/posts/user/${userId}`);
         console.log('Full API Response:', response); // Debug: Log the full API response
         const fetchedPosts = response.data || []; // Fallback to an empty array if no posts
         console.log('Fetched Posts:', fetchedPosts); // Debug: Log fetched posts
@@ -118,7 +118,7 @@ const UserPosts: React.FC = () => {
         const userId = user.id; // Replace with your logic to get the logged-in user's ID
   
         // Fetch user name
-        const userResponse = await fetch(`h${process.env.REACT_APP_API_URL}/profile/${userIdToChatWith}`);
+        const userResponse = await fetch(`h${import.meta.env.VITE_API_URL}/profile/${userIdToChatWith}`);
         const userResult = await userResponse.json();
   
         if (!userResult?.user) {
@@ -129,7 +129,7 @@ const UserPosts: React.FC = () => {
         const userName = `${userResult.user.firstName} ${userResult.user.lastName}`;
   
         // API call to initiate or retrieve the chat
-        const response = await fetch("${process.env.REACT_APP_API_URL}/chats", {
+        const response = await fetch("${import.meta.env.VITE_API_URL}/chats", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

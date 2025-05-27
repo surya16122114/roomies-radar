@@ -64,7 +64,7 @@ const PaymentPage: React.FC = () => {
       }
 
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/memberships/${user.id}/subscribe`,
+        `${import.meta.env.VITE_API_URL}/memberships/${user.id}/subscribe`,
         {
           paymentMethodId: paymentMethod?.id,
           amount: 10, // Example amount in USD

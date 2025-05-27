@@ -101,7 +101,7 @@ const handleDeleteCancel = () => {
 
                 for (const id of uniqueUserIds) {
                     if (!userNames[id]) { // Fetch only if the name is missing
-                        const response = await fetch(`${process.env.REACT_APP_API_URL}/profile/${id}`);
+                        const response = await fetch(`${import.meta.env.VITE_API_URL}/profile/${id}`);
                         const data = await response.json();
                         if (data?.profile) {
                             fetchedNames[id] = `${data.profile.userId.firstName} ${data.profile.userId.lastName}`;

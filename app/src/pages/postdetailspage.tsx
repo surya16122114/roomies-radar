@@ -18,7 +18,7 @@ const PostDetailsPage: React.FC = () => {
   useEffect(() => {
     const fetchPostDetails = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts/${postId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${postId}`);
         setPost(response.data);
       } catch (err: any) {
         setError('Failed to load post details. Please try again later.');
@@ -35,7 +35,7 @@ const PostDetailsPage: React.FC = () => {
     try {
       const userId = currentUserId;
 
-      const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/profile/${userIdToChatWith}`);
+      const userResponse = await fetch(`${import.meta.env.VITE_API_URL}/profile/${userIdToChatWith}`);
       const userResult = await userResponse.json();
 
         if (!userResult?.profile) {
@@ -45,7 +45,7 @@ const PostDetailsPage: React.FC = () => {
 
         const userName = `${userResult.profile.userId.firstName} ${userResult.profile.userId.lastName}`;
 
-      const response = await fetch('${process.env.REACT_APP_API_URL}/chats', {
+      const response = await fetch('${import.meta.env.VITE_API_URL}/chats', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const PostDetailsPage: React.FC = () => {
   const onDeletePost = async () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`${process.env.REACT_APP_API_URL}/posts/${postId}`);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/posts/${postId}`);
         alert('Post deleted successfully!');
         navigate('/home'); // Redirect to home or a specific page after deletion
       } catch (err: any) {
