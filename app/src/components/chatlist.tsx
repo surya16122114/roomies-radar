@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import "../styles/ChatList.css";
+import "../styles/chatlist.css";
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 import UserSearchBar from "./usersearchbar"
