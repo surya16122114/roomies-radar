@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import "../styles/ChatList.css";
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
-import UserSearchBar from "./UserSearchBar"
+import UserSearchBar from "./usersearchbar"
 
 interface Chat {
   chatId: string;
