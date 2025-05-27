@@ -3,9 +3,9 @@ import { Box, Typography, Stepper, Step, StepLabel, Button, CircularProgress } f
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../redux/Slice/postslice';
 import { AppDispatch, RootState } from '../redux/store';
-import PostDetailsForm from '../components/PostDetailsForm';
-import PostRentForm from '../components/PostRentForm';
-import PostPreferencesForm from '../components/PostPreferencesForm';
+import PostDetailsForm from '../components/postdetailsform';
+import PostRentForm from '../components/postrentform';
+import PostPreferencesForm from '../components/postpreferencesform';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 

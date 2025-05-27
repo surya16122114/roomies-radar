@@ -19,11 +19,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import logo from '../assets/friendship.jpeg';
 // import SubscribeButton from './subscribebutton';
-import NavbarHome from './NavbarHome';
+import NavbarHome from './navbarhome';
 import NavbarHowitworks from './navabarhowitworks'; 
-import Inbox from './Inbox';
-import Profile from './Profile';
-import NavbarLogin from './NavbarLogin';
+import Inbox from './inbox';
+import Profile from './profile';
+import NavbarLogin from './navbarlogin';
 
 const HpNavbar: React.FC = () => {
   const location = useLocation();

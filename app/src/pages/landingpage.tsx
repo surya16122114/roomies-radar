@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, List, ListItem } from '@mui/material';
 import House from '../assets/moveout.jpg';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar';
 import Howitworks from '../components/howitworks';
 import Footer from '../components/footer';
 

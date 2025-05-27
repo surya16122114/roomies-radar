@@ -1,22 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import CreatePost from './pages/CreatePost';
+import HomePage from './pages/homepage';
+import CreatePost from './pages/createpost';
 import LandingPage from './pages/landingpage';
-import ChatPage from './pages/ChatPage';
-import { Login } from './pages/LoginPage';
+import ChatPage from './pages/chatpage';
+import { Login } from './pages/loginpage';
 import  Signup  from './pages/signup';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store'; // Import `persistor` from the store configuration
 import ProtectedRoute from './route/protectedroute';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePage from './pages/profilepage';
 import ProfileUpdate from './pages/updateprofile';
-import PostDetailsPage from './pages/PostDetailsPage';
-import UserProfile from './pages/UserProfile';
-import ProfileForm from './pages/ProfileForm';
-import EditProfile from './pages/EditProfile';
-import UserPosts from './pages/UserPosts';
+import PostDetailsPage from './pages/postdetailspage';
+import UserProfile from './pages/userprofile';
+import ProfileForm from './pages/profileform';
+import EditProfile from './pages/editprofile';
+import UserPosts from './pages/userposts';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './materialui/theme';
@@ -25,7 +25,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import ConfirmationPage from './pages/confirmationpage';
 import PaymentPage from './pages/paymentpage';
-import SubscribeButton from './components/SubscribeButton'
+import SubscribeButton from './components/subscribebutton'
 
 
 //Initialize Stripe  publishable key
