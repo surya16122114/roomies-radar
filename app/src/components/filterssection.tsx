@@ -3,7 +3,7 @@ import { Box, Typography, Slider, Chip, Button, TextField } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import { fetchPosts } from '../redux/Slice/postslice';
 import { AppDispatch } from '../redux/store';
-import '../styles/FilterSection.css';
+import '../styles/filtersection.css';
 import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
