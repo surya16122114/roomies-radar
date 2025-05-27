@@ -18,7 +18,7 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/profile/${userId}`);
         setProfile(response.data.profile);
         setLoading(false);
       } catch (err: any) {

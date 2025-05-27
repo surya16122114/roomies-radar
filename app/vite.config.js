@@ -11,7 +11,4 @@ export default defineConfig({
     },
   },
   publicDir: 'public', // Ensure static files are copied from the public directory
-  define: {
-    'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL),
-  },
 });

@@ -24,9 +24,9 @@ export const Signup: React.FC = () => {
       setError('Password and Confirm Password do not match');
       return;
     }
-
+    console.log('REACT_APP_API_URL',import.meta.env.VITE_API_URL)
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/user/register`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/user/register`, {
         firstName,
         lastName,
         DOB,

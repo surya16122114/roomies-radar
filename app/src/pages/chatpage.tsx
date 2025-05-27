@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const socket = io(process.env.REACT_APP_API_URL);
+const socket = io(import.meta.env.VITE_API_URL);
 
 const ChatPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,7 +31,7 @@ const ChatPage: React.FC = () => {
   useEffect(() => {
     const fetchChats = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/chats/${userId}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${userId}`);
             const result = await response.json();
 
             if (result.success) {
@@ -112,7 +112,7 @@ const ChatPage: React.FC = () => {
 
   const fetchMessages = async (chatId: string) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/chats/${chatId}/messages`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}/messages`);
       const result = await response.json();
       if (result.success) {
         dispatch(setMessages(result.data));
@@ -126,7 +126,7 @@ const ChatPage: React.FC = () => {
     if (!newMessage.trim()) return;
     try {
       const message = { content: newMessage, senderId: userId, status: "delivered" };
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/chats/${currentChat?.chatId}/messages`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${currentChat?.chatId}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(message),
@@ -150,7 +150,7 @@ const ChatPage: React.FC = () => {
       ));
   
       // Call the backend to persist the update
-      fetch(`${process.env.REACT_APP_API_URL}/chats/${chatId}/messages/${messageId}/messageStatus`, {
+      fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}/messages/${messageId}/messageStatus`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -175,7 +175,7 @@ const ChatPage: React.FC = () => {
 
   const initiateOrRetrieveChat = async (user1Id: string|null, user2Id: string|null) => {
     try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/chats`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/chats`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -210,7 +210,7 @@ const ChatPage: React.FC = () => {
 const deleteMessage = async (messageId: string) => {
   try {
       const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/chats/${currentChat?.chatId}/messages/${messageId}`,
+          `${import.meta.env.VITE_API_URL}/chats/${currentChat?.chatId}/messages/${messageId}`,
           { method: "DELETE" }
       );
       const result = await response.json();
@@ -241,7 +241,7 @@ const deleteMessage = async (messageId: string) => {
 
   const deleteChat = async (chatId: string) => {
     try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/chats/${chatId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}`, {
             method: "DELETE",
         });
         const result = await response.json();

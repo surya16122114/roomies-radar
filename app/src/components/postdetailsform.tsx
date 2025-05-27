@@ -27,7 +27,7 @@ const PostDetailsForm: React.FC<PostDetailsFormProps> = ({ formData, handleInput
     setIsSearching(true);
 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/search?q=${query}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/search?q=${query}`);
       setSearchResults(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);

@@ -39,7 +39,7 @@ const handleStartChat = async (userIdToChatWith: string) => {
       const userId = currentUserId; // Replace with your logic to get the logged-in user's ID
 
       // Fetch user name
-      const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/profile/${userIdToChatWith}`);
+      const userResponse = await fetch(`${import.meta.env.VITE_API_URL}/profile/${userIdToChatWith}`);
       const userResult = await userResponse.json();
 
       if (!userResult) {
@@ -50,7 +50,7 @@ const handleStartChat = async (userIdToChatWith: string) => {
       const userName = `${userResult.profile.userId.firstName} ${userResult.profile.userId.lastName}`;
 
       // API call to initiate or retrieve the chat
-      const response = await fetch("${process.env.REACT_APP_API_URL}/chats", {
+      const response = await fetch("${import.meta.env.VITE_API_URL}/chats", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",

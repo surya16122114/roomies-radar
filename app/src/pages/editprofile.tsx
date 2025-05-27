@@ -20,7 +20,7 @@ const EditProfile: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/profile/${userId}`);
         setProfile(response.data.profile);
         setLoading(false);
       } catch (err: any) {
@@ -37,7 +37,7 @@ const EditProfile: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/profile/${userId}`, profile);
+      const response = await axios.patch(`${import.meta.env.VITE_API_URL}/profile/${userId}`, profile);
       if (response.status === 200) {
         navigate(`/profile/${userId}`); // Redirect to the user's profile page
       } else {
