@@ -17,7 +17,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import SendIcon from "@mui/icons-material/Send";
-import "../styles/ChatWindow.css";
+import "../styles/chatwindow.css";
 
 interface Message {
   messageId: string;
