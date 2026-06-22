@@ -11,7 +11,6 @@ Welcome to **Roomies Radar** by the **API Aces** team! Roomies Radar is a compre
   - [Domain Model](#domain-model)
     - [Main Entities:](#main-entities)
     - [Relationships:](#relationships)
-- [Collaborated with](#collaborated-with)
 - [Design Model](#design-model)
 - [Commands to commit and push:](#commands-to-commit-and-push)
 - [Pre-requisites](#pre-requisites)
@@ -48,13 +47,6 @@ The Roomies Radar project is designed using Domain-Driven Design (DDD) principle
 - A **Profile** belongs to a **User** and includes **WorkExperience**, **Preferences**, and **Education**.
 - A **User** can create multiple **Posts** and be tagged in multiple posts.
 - A **Post** has a **Listing**, and a **Listing** is located at an **Address**.
-
-
-# Collaborated with
-    ~ B Sai Kalyan                            ---         burra.sa@northeastern.edu
-    ~ Chinnasurya Prasad Vulavala             ---         vulavala.c@northeastern.edu
-    ~ Sai Lalith Pulluri                      ---          pulluri.sa@northeastern.edu
-    ~ Tianrui Li                              ---          li.tianr@northeastern.edu
 
 
 # Design Model
