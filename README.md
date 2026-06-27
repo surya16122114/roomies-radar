@@ -1,8 +1,6 @@
-## API Aces
-
 # Roomies Radar
 
-Welcome to **Roomies Radar** by the **API Aces** team! Roomies Radar is a comprehensive application designed to help users find compatible roommates based on their preferences and create property listings for shared accommodations.
+Welcome to **Roomies Radar**! Roomies Radar is a comprehensive application designed to help users find compatible roommates based on their preferences and create property listings for shared accommodations.
 
 ## Table of Contents
 - [Roomies Radar](#roomies-radar)
